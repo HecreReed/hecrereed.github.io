@@ -1,44 +1,75 @@
-
-
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
     j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
     })(window,document,'script','dataLayer','GTM-KXMBZ9ZN');</script>
     <!-- End Google Tag Manager -->
-        <title>URL Parameter Display</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <style>
-            body {
-                font-family: Arial, sans-serif;
-                margin: 40px;
-                line-height: 1.6;
-            }
-            .parameter-display {
-                margin-top: 20px;
-                padding: 15px;
-                border: 1px solid #ddd;
-                border-radius: 4px;
-            }
-        </style>
-    </head>
-    <body>
-        <h1>URL Parameter Display</h1>
-        <p>This page displays key1 and key2 parameters from the URL.</p>
-        
-        <div class="parameter-display">
-            <p><strong>key1 value:</strong> <span id="key1-value">Not found</span></p>
-            <p><strong>key2 value:</strong> <span id="key2-value">Not found</span></p>
-        </div>
+    <title>URL Parameter Display</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            line-height: 1.6;
+        }
+        .parameter-display {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+    </style>
+    
+    <script>
+    // 在页面加载前初始化dataLayer
+    window.dataLayer = window.dataLayer || [];
+    
+    // 解析URL参数的函数
+    function getParameterByName(name) {
+        var url = window.location.href;
+        name = name.replace(/[\[\]]/g, '\\$&');
+        var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, ' '));
+    }
+    
+    // 获取参数值
+    var key1Value = getParameterByName('key1');
+    var key2Value = getParameterByName('key2');
+    
+    // 将值推送到dataLayer
+    dataLayer.push({
+        'event': 'urlParametersLoaded',
+        'customerid': key1Value || "",
+        'customeremail': key2Value || ""
+    });
+    
+    // 页面加载后显示参数值
+    window.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('key1-value').textContent = key1Value || "Not found";
+        document.getElementById('key2-value').textContent = key2Value || "Not found";
+    });
+    </script>
+</head>
+<body>
     <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KXMBZ9ZN"
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KXMBZ9ZN"
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
-    </body>
-    </html>
+
+    <h1>URL Parameter Display</h1>
+    <p>This page displays key1 and key2 parameters from the URL.</p>
     
+    <div class="parameter-display">
+        <p><strong>key1 value:</strong> <span id="key1-value">Not found</span></p>
+        <p><strong>key2 value:</strong> <span id="key2-value">Not found</span></p>
+    </div>
+</body>
+</html>
