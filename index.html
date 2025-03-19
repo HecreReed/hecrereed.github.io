@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <!-- Google Tag Manager -->
+<!-- Google Tag Manager -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KXMBZ9ZN"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
     j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-KXMBZ9ZN');</script>
+    })(window,document,'script','dataLayer','GTM-XXXX');</script>
     <!-- End Google Tag Manager -->
     <title>URL Parameter Display</title>
     <meta charset="UTF-8">
@@ -26,10 +28,8 @@
     </style>
     
     <script>
-    // 在页面加载前初始化dataLayer
     window.dataLayer = window.dataLayer || [];
     
-    // 解析URL参数的函数
     function getParameterByName(name) {
         var url = window.location.href;
         name = name.replace(/[\[\]]/g, '\\$&');
@@ -40,18 +40,15 @@
         return decodeURIComponent(results[2].replace(/\+/g, ' '));
     }
     
-    // 获取参数值
     var key1Value = getParameterByName('key1');
     var key2Value = getParameterByName('key2');
     
-    // 将值推送到dataLayer
     dataLayer.push({
         'event': 'urlParametersLoaded',
         'customerid': key1Value || "",
         'customeremail': key2Value || ""
     });
     
-    // 页面加载后显示参数值
     window.addEventListener('DOMContentLoaded', function() {
         document.getElementById('key1-value').textContent = key1Value || "Not found";
         document.getElementById('key2-value').textContent = key2Value || "Not found";
